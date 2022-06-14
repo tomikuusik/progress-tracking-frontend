@@ -1,0 +1,26 @@
+services:
+  client:
+    build:
+      context: ./
+      dockerfile: Dockerfile.prod
+    command: npm run build
+    volumes:
+      - frontendBuild:/app/dist
+  nginx:
+    image: nginx
+    volumes:
+      - frontendBuild:/app
+    configs:
+      - source: nginxconf
+        target: /etc/nginx/nginx.conf
+    environment:
+      - VIRTUAL_HOST=progress.localhost
+configs:
+  nginxconf:
+    file: ./nginx.conf
+volumes:
+  frontendBuild:
+networks:
+  default:
+    external:
+      name: tomikuusik.eu
