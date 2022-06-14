@@ -24,13 +24,14 @@
               <a
                 v-for="item in navigation"
                 :key="item.name"
-                :href="item.href"
+                @click="changeView(item.path)"
                 :class="[
-                  item.current
+                  router.currentRoute.value.name === item.name
                     ? 'bg-gray-900 text-white'
                     : 'text-gray-300 hover:bg-gray-700 hover:text-white',
                   'px-3 py-2 rounded-md text-sm font-medium',
                 ]"
+                class="hover:cursor-pointer active:cursor-grab"
                 :aria-current="item.current ? 'page' : undefined"
                 >{{ item.name }}</a
               >
@@ -124,7 +125,7 @@
   </Disclosure>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import {
   Disclosure,
   DisclosureButton,
@@ -135,9 +136,17 @@ import {
   MenuItems,
 } from "@headlessui/vue";
 import { MenuIcon, XIcon } from "@heroicons/vue/outline";
+import { onMounted } from "vue";
+import { useRouter } from "vue-router";
 
-const navigation = [
-  { name: "Dashboard", href: "#", current: true },
-  { name: "Courses", href: "#", current: false },
-];
+const router = useRouter();
+
+onMounted(() => {
+  console.log(router.options.routes);
+});
+
+const navigation = router.options.routes;
+const changeView = (href: string) => {
+  router.push(href);
+};
 </script>

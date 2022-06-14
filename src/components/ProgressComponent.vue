@@ -23,10 +23,22 @@
 import { defineComponent } from "vue";
 export default defineComponent({
   props: {
-    course: String,
-    maxpoints: Number,
-    gainedpoints: Number,
-    lostpoints: Number,
+    course: {
+      type: String,
+      required: true,
+    },
+    maxpoints: {
+      type: Number,
+      required: true,
+    },
+    gainedpoints: {
+      type: Number,
+      required: true,
+    },
+    lostpoints: {
+      type: Number,
+      required: true,
+    },
   },
   computed: {
     getProgress() {
@@ -56,19 +68,23 @@ export default defineComponent({
       return "";
     },
   },
+  methods: {},
 });
 </script>
 <style lang="scss" scoped>
 .container {
   position: relative;
 }
+
 .progression-bar {
   background-color: v-bind(getBackgroundColor);
   width: v-bind(getProgressPercentage);
 }
+
 .lost-progression-bar {
   width: v-bind(getLostProgressPercentage);
 }
+
 .max-attainable-ticker {
   position: absolute;
   height: inherit;
