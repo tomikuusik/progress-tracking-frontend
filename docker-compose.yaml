@@ -8,13 +8,14 @@ services:
       - frontendBuild:/app/dist
   nginx:
     image: nginx
+    name: progress.tracking.service
     volumes:
       - frontendBuild:/app
     configs:
       - source: nginxconf
         target: /etc/nginx/nginx.conf
     environment:
-      - VIRTUAL_HOST=progress.tomikuusik
+      - VIRTUAL_HOST=track.tomikuusik.eu
 configs:
   nginxconf:
     file: ./nginx.conf
