@@ -14,7 +14,7 @@ services:
       - source: nginxconf
         target: /etc/nginx/nginx.conf
     environment:
-      - VIRTUAL_HOST=progress.localhost
+      - VIRTUAL_HOST=progress.tomikuusik
 configs:
   nginxconf:
     file: ./nginx.conf
