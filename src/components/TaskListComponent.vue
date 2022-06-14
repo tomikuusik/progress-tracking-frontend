@@ -8,6 +8,7 @@
 import { defineComponent } from "vue";
 import TaskComponent from "./Tasks/TaskComponent.vue";
 import Task from "@/assets/types/Task";
+import { PropType } from "vue";
 
 export default defineComponent({
   name: "TaskListComponent",
@@ -16,14 +17,14 @@ export default defineComponent({
   },
   data() {
     return {
-      task: new Task(
-        1,
-        "ETA_12",
-        "HCI",
-        "This is some description",
-        10,
-        14102022
-      ),
+      task: {
+        id: 1,
+        course_id: "ETA12",
+        name: "HCI",
+        description: "Something",
+        points: 100,
+        deadline: 120312,
+      },
     };
   },
 });

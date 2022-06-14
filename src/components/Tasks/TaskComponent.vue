@@ -21,7 +21,7 @@
   </div>
 </template>
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent, PropType } from "vue";
 import { CheckIcon, XIcon } from "@heroicons/vue/solid";
 import Task from "@/assets/types/Task";
 
@@ -29,7 +29,7 @@ export default defineComponent({
   name: "HelloWorld",
   props: {
     task: {
-      type: Task,
+      type: Object as PropType<Task>,
       required: true,
     },
   },
