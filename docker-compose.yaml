@@ -6,9 +6,8 @@ services:
     command: npm run build
     volumes:
       - frontendBuild:/app/dist
-  nginx:
+  progress.tracking.service:
     image: nginx
-    name: progress.tracking.service
     volumes:
       - frontendBuild:/app
     configs:
