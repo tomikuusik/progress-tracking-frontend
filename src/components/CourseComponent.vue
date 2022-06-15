@@ -1,6 +1,6 @@
 <template>
   <div
-    class="container w-fit m-5 p-5 shadow-md rounded-lg bg-slate-50 opacity-90 hover:opacity-100 hover:shadow-lg border border-gray-100"
+    class="container max-w-fit w-128 m-5 p-5 shadow-md rounded-lg bg-slate-50 opacity-90 hover:opacity-100 hover:shadow-lg border border-gray-100 hover:cursor-pointer active:cursor-grab"
   >
     <div class="container mx-auto grid grid-cols-2 w-fit">
       <p class="field-box left col-start-1 row-start-1">ID:</p>
