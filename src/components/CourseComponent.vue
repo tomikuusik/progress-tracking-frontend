@@ -31,11 +31,25 @@
         {{ course.lostpoints }}
       </p>
     </div>
+    <div class="container flex justify-center content-center gap-8 mt-4">
+      <button
+        class="rounded-lg border-solid border-white border-2 drop-shadow h-8 w-32 bg-gradient-to-r from-slate-100 to-slate-50 hover:drop-shadow-md active:scale-95 uppercase font-black text-lg text-sky-900"
+      >
+        Tasks
+      </button>
+      <button
+        class="rounded-lg border-solid border-white border-2 drop-shadow h-8 w-32 bg-gradient-to-r from-slate-100 to-slate-50 hover:drop-shadow-md active:scale-95 uppercase font-black text-lg text-sky-900"
+        @click="store.dispatch('courseModificationWindowOpenRequest', course)"
+      >
+        Edit
+      </button>
+    </div>
   </div>
 </template>
 <script setup lang="ts">
 import Course from "@/assets/types/Course";
 import { defineProps, PropType } from "vue";
+import store from "@/store";
 defineProps({
   course: {
     required: true,

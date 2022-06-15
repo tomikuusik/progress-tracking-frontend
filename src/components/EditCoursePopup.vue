@@ -59,17 +59,17 @@
           class="drop-shadow-sm h-8 w-8 ml-1 bg-white rounded-md checked:bg-slate-100 checked:drop-shadow checked:border-2 checked:border-slate-600 checked:border-solid"
         />
         <input
-          type="text"
+          type="number"
           v-model="course.gainedpoints"
           class="p-2 h-8 w-full bg-slate-50 rounded-lg outline-0 border-white border-solid border-2 focus:bg-gradient-to-r focus:from-white focus:to-purple-50 focus:drop-shadow focus:drop-shadow-sm disabled:bg-gradient-to-r disabled:from-zinc-100 disabled:to-zinc-200 disabled:border-none"
         />
         <input
-          type="text"
+          type="number"
           v-model="course.lostpoints"
           class="p-2 h-8 w-full bg-slate-50 rounded-lg outline-0 border-white border-solid border-2 focus:bg-gradient-to-r focus:from-white focus:to-purple-50 focus:drop-shadow drop-shadow-sm disabled:drop-shadow-none disabled:bg-gradient-to-r disabled:from-zinc-100 disabled:to-zinc-200 disabled:border-none"
         />
         <input
-          type="text"
+          type="number"
           v-model="course.maxpoints"
           class="p-2 h-8 w-full bg-slate-50 rounded-lg outline-0 border-white border-solid border-2 focus:bg-gradient-to-r focus:from-white focus:to-purple-50 focus:drop-shadow drop-shadow-sm disabled:drop-shadow-none disabled:bg-gradient-to-r disabled:from-zinc-100 disabled:to-zinc-200 disabled:border-none"
         />
@@ -86,7 +86,7 @@
           class="p-2 h-24 w-full bg-slate-50 rounded-lg outline-0 border-white border-solid border-2 focus:bg-gradient-to-r focus:from-white focus:to-slate-50 focus:drop-shadow drop-shadow-sm bg-gradient-to-r from-slate-50 to-zinc-50 text-alig"
         />
       </form>
-      <div class="flex justify-center gap-5">
+      <!-- <div class="flex justify-center gap-5">
         <CheckIcon
           class="select-none h-16 w-16 hover:cursor-pointer active:cursor-grab active:scale-95"
           @click="commit"
@@ -95,6 +95,20 @@
           class="select-none h-16 w-16 hover:cursor-pointer active:cursor-grab active:scale-95"
           @click="deleteCourse"
         />
+      </div> -->
+      <div class="container flex justify-center content-center gap-8 mt-4">
+        <button
+          class="rounded-lg border-solid border-white border-2 drop-shadow h-8 w-32 bg-gradient-to-r from-slate-100 to-slate-50 hover:drop-shadow-md active:scale-95 uppercase font-black text-lg text-sky-900"
+          @click="commit"
+        >
+          save
+        </button>
+        <button
+          class="rounded-lg border-solid border-white border-2 drop-shadow h-8 w-32 bg-gradient-to-r from-red-400 to-red-500 hover:drop-shadow-md active:scale-95 uppercase font-black text-lg text-zinc-200 hover:shadow-lg hover:shadow-red-400"
+          @click="deleteCourse"
+        >
+          delete
+        </button>
       </div>
     </div>
   </div>

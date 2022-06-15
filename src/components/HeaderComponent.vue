@@ -110,6 +110,7 @@
           :key="item.name"
           as="router-link"
           :href="item.href"
+          @click="changeView(item.path)"
           :class="[
             item.current
               ? 'bg-gray-900 text-white'
