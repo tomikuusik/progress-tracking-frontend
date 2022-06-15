@@ -6,13 +6,13 @@
     <div
       id="close-button"
       class="w-12 h-12 bg-slate-200 fixed top-20 right-20 z-20 opacity-75 border-solid border-white border-2 rounded-lg hover:cursor-pointer active:cursor-grab"
-      @click="closeWindow"
+      @click="close"
     >
       <XIcon />
     </div>
     <div
       id="popup"
-      class="bg-gradient-to-r from-fuchsia-50 to-gray-100 w-96 md:w-128 rounded-lg border-white border-solid border-2 drop-shadow p-8 flex flex-col gap-4 hover:shadow-violet-50 hover:shadow-2xl transition duration-400 ease-in-out"
+      class="bg-gradient-to-r from-slate-50 to-gray-100 w-96 md:w-128 rounded-lg border-white border-solid border-2 drop-shadow p-8 flex flex-col gap-4 hover:shadow-violet-50 hover:shadow-2xl transition duration-400 ease-in-out"
     >
       <form class="container flex-col flex align-start">
         <label
@@ -22,6 +22,7 @@
         </label>
         <input
           type="text"
+          v-model="course.name"
           class="p-2 h-8 w-full rounded-lg outline-0 border-white border-solid border-2 focus:bg-gradient-to-r focus:from-white focus:to-slate-50 focus:drop-shadow drop-shadow-sm bg-gradient-to-r from-slate-50 to-zinc-50"
         />
       </form>
@@ -33,6 +34,7 @@
         </label>
         <input
           type="text"
+          v-model="course.code"
           class="p-2 h-8 w-full rounded-lg outline-0 border-white border-solid border-2 focus:bg-gradient-to-r focus:from-white focus:to-slate-50 focus:drop-shadow drop-shadow-sm bg-gradient-to-r from-slate-50 to-zinc-50"
         />
       </form>
@@ -53,22 +55,22 @@
         </label>
         <input
           type="checkbox"
-          @click="state.selected = !state.selected"
-          class="drop-shadow-sm h-8 w-8 ml-1 bg-white rounded-md checked:bg-slate-300 checked:drop-shadow checked:border-2 checked:border-slate-600 checked:border-solid"
+          v-model="course.gradable"
+          class="drop-shadow-sm h-8 w-8 ml-1 bg-white rounded-md checked:bg-slate-100 checked:drop-shadow checked:border-2 checked:border-slate-600 checked:border-solid"
         />
         <input
           type="text"
-          :disabled="!state.selected"
+          v-model="course.gainedpoints"
           class="p-2 h-8 w-full bg-slate-50 rounded-lg outline-0 border-white border-solid border-2 focus:bg-gradient-to-r focus:from-white focus:to-purple-50 focus:drop-shadow focus:drop-shadow-sm disabled:bg-gradient-to-r disabled:from-zinc-100 disabled:to-zinc-200 disabled:border-none"
         />
         <input
           type="text"
-          :disabled="!state.selected"
+          v-model="course.lostpoints"
           class="p-2 h-8 w-full bg-slate-50 rounded-lg outline-0 border-white border-solid border-2 focus:bg-gradient-to-r focus:from-white focus:to-purple-50 focus:drop-shadow drop-shadow-sm disabled:drop-shadow-none disabled:bg-gradient-to-r disabled:from-zinc-100 disabled:to-zinc-200 disabled:border-none"
         />
         <input
           type="text"
-          :disabled="!state.selected"
+          v-model="course.maxpoints"
           class="p-2 h-8 w-full bg-slate-50 rounded-lg outline-0 border-white border-solid border-2 focus:bg-gradient-to-r focus:from-white focus:to-purple-50 focus:drop-shadow drop-shadow-sm disabled:drop-shadow-none disabled:bg-gradient-to-r disabled:from-zinc-100 disabled:to-zinc-200 disabled:border-none"
         />
       </div>
@@ -79,23 +81,73 @@
           description
         </label>
         <textarea
+          v-model="course.description"
           type="text"
           class="p-2 h-24 w-full bg-slate-50 rounded-lg outline-0 border-white border-solid border-2 focus:bg-gradient-to-r focus:from-white focus:to-slate-50 focus:drop-shadow drop-shadow-sm bg-gradient-to-r from-slate-50 to-zinc-50 text-alig"
         />
       </form>
+      <div class="flex justify-center gap-5">
+        <CheckIcon
+          class="select-none h-16 w-16 hover:cursor-pointer active:cursor-grab active:scale-95"
+          @click="commit"
+        />
+        <XIcon
+          class="select-none h-16 w-16 hover:cursor-pointer active:cursor-grab active:scale-95"
+          @click="deleteCourse"
+        />
+      </div>
     </div>
   </div>
 </template>
 <script setup lang="ts">
-import { reactive, defineProps, onDeactivated } from "vue";
+import { reactive, computed } from "vue";
 import { CheckIcon, XIcon } from "@heroicons/vue/solid";
 import store from "@/store";
+import Course from "@/assets/types/Course";
 
-function closeWindow() {
-  store.dispatch("courseModificationWindowCloseRequest");
+function commit() {
+  if (isNewCourse.value === true) {
+    store.dispatch("saveNewCourse");
+  } else {
+    store.dispatch("saveCourseModification", course.value);
+  }
+  close();
 }
-const state = reactive({
-  selected: false,
+
+function deleteCourse() {
+  if (isNewCourse.value === false) {
+    store.dispatch("deleteCourse", course.value.id);
+  }
+  close();
+}
+
+function close() {
+  store.dispatch("discardCourseModification");
+}
+
+const isNewCourse = computed(() => {
+  const course = store.getters.getActiveCourse;
+  if (course != {}) {
+    return false;
+  }
+  return true;
+});
+
+const course = computed(() => {
+  const course = structuredClone(store.getters.getActiveCourse);
+  if (course != {}) {
+    return course;
+  } else {
+    return {
+      id: "",
+      name: "",
+      description: "",
+      maxpoints: "",
+      gradable: false,
+      gainedpoints: "",
+      lostpoints: "",
+    };
+  }
 });
 </script>
 <style lang="scss" scoped>
