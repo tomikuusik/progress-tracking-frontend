@@ -7,4 +7,5 @@ export default interface Course {
   gradable: boolean;
   gainedpoints: number;
   lostpoints: number;
+  goal: number;
 }

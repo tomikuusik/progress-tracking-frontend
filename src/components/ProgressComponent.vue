@@ -1,10 +1,10 @@
 <template>
   <div
-    class="container inline-flex flex-col shadow-md p-1 rounded-lg bg-slate-50 opacity-90 hover:opacity-100 hover:shadow-lg border border-gray-100"
+    class="container inline-flex flex-col shadow-md p-1 rounded-lg bg-slate-50 opacity-90 hover:opacity-100 hover:shadow-lg border border-gray-100 h-14"
   >
     <div class="mb-1 text-sm font-bold">
-      {{ course }}: [ progression: {{ getProgressPercentage }}, lost
-      progression: {{ getLostProgressPercentage }}, maximum attainable:
+      {{ course.name }}: [ progression: {{ getProgressPercentage }}, lost:
+      {{ getLostProgressPercentage }}, maximum attainable:
       {{ getMaxAttainable }} ]
     </div>
     <div class="inline-flex w-full bg-gray-200 rounded-full h-2.5">
@@ -15,8 +15,11 @@
       <div
         class="lost-progression-bar h-2.5 rounded-br-full rounded-tr-full bg-gray-300"
       ></div>
-      <div class="max-attainable-ticker bg-gray-400 w-1"></div>
+      <div
+        class="max-attainable-ticker flex flex-col items-center bg-black w-0.5 shadow-sm shadow-gray-600"
+      ></div>
     </div>
+    <div></div>
   </div>
 </template>
 <script lang="ts">
@@ -24,31 +27,29 @@ import { defineComponent } from "vue";
 export default defineComponent({
   props: {
     course: {
-      type: String,
-      required: true,
-    },
-    maxpoints: {
-      type: Number,
-      required: true,
-    },
-    gainedpoints: {
-      type: Number,
-      required: true,
-    },
-    lostpoints: {
-      type: Number,
+      type: Object,
       required: true,
     },
   },
   computed: {
     getProgress() {
-      return (this.gainedpoints / this.maxpoints) * 100;
+      return Math.round(
+        (this.course.gainedpoints / this.course.maxpoints) * 100
+      );
     },
     getLostProgressPercentage() {
-      return (this.lostpoints / this.maxpoints) * 100 + "%";
+      return (
+        Math.round((this.course.lostpoints / this.course.maxpoints) * 100) + "%"
+      );
     },
     getMaxAttainable() {
-      return ((this.maxpoints - this.lostpoints) / this.maxpoints) * 100 + "%";
+      return (
+        Math.round(
+          ((this.course.maxpoints - this.course.lostpoints) /
+            this.course.maxpoints) *
+            100
+        ) + "%"
+      );
     },
     getBackgroundColor() {
       if (this.getProgress < 50) {
@@ -62,7 +63,7 @@ export default defineComponent({
       return this.getProgress + "%";
     },
     hasRoundedCorners() {
-      if (this.lostpoints == 0) {
+      if (this.course.lostpoints == 0) {
         return "rounded-full";
       }
       return "";

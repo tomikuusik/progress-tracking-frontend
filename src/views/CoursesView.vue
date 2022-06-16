@@ -6,11 +6,27 @@
       :course="course"
     />
   </div>
-  <EditCoursePopupVue v-if="store.getters.getCourseModificationWindowStatus" />
+  <Transition>
+    <EditCoursePopupVue
+      v-if="store.getters.getCourseModificationWindowStatus"
+    />
+  </Transition>
 </template>
 <script setup lang="ts">
 import store from "@/store";
-import { reactive } from "vue";
 import CourseComponentVue from "../components/CourseComponent.vue";
 import EditCoursePopupVue from "@/components/EditCoursePopup.vue";
 </script>
+<style lang="scss" scoped>
+.v-enter-active {
+  transition: opacity 0.5s ease;
+}
+.v-leave-active {
+  transition: none;
+}
+
+.v-enter-from,
+.v-leave-to {
+  opacity: 0;
+}
+</style>
