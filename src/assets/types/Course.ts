@@ -1,3 +1,5 @@
+import Grade from "./Grade";
+
 export default interface Course {
   id: string;
   name: string;
@@ -10,4 +12,5 @@ export default interface Course {
   goal: number;
   startdate: string;
   enddate: string;
+  gradesystem: Array<Grade>;
 }

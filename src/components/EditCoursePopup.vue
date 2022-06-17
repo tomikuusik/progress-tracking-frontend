@@ -56,36 +56,74 @@
         <input
           type="checkbox"
           v-model="course.gradable"
+          @click="clickCheckbox"
           class="drop-shadow-sm h-8 w-8 ml-1 bg-white rounded-md checked:bg-slate-100 checked:drop-shadow checked:border-2 checked:border-slate-600 checked:border-solid"
         />
         <input
           type="number"
+          pattern="[0-9]*"
+          inputmode="numeric"
           v-model="course.gainedpoints"
           class="p-2 h-8 w-full bg-slate-50 rounded-lg outline-0 border-white border-solid border-2 focus:bg-gradient-to-r focus:from-white focus:to-purple-50 focus:drop-shadow focus:drop-shadow-sm disabled:bg-gradient-to-r disabled:from-zinc-100 disabled:to-zinc-200 disabled:border-none"
         />
         <input
           type="number"
+          pattern="[0-9]*"
+          inputmode="numeric"
           v-model="course.lostpoints"
           class="p-2 h-8 w-full bg-slate-50 rounded-lg outline-0 border-white border-solid border-2 focus:bg-gradient-to-r focus:from-white focus:to-purple-50 focus:drop-shadow drop-shadow-sm disabled:drop-shadow-none disabled:bg-gradient-to-r disabled:from-zinc-100 disabled:to-zinc-200 disabled:border-none"
         />
         <input
           type="number"
+          pattern="[0-9]*"
+          inputmode="numeric"
           v-model="course.maxpoints"
           class="p-2 h-8 w-full bg-slate-50 rounded-lg outline-0 border-white border-solid border-2 focus:bg-gradient-to-r focus:from-white focus:to-purple-50 focus:drop-shadow drop-shadow-sm disabled:drop-shadow-none disabled:bg-gradient-to-r disabled:from-zinc-100 disabled:to-zinc-200 disabled:border-none"
         />
       </div>
-      <form class="container flex-col flex align-start">
-        <label
-          class="pl-1 text-left font-bold text-slate-500 uppercase text-sm"
-        >
-          description
-        </label>
-        <textarea
-          v-model="course.description"
-          type="text"
-          class="p-2 h-24 w-full bg-slate-50 rounded-lg outline-0 border-white border-solid border-2 focus:bg-gradient-to-r focus:from-white focus:to-slate-50 focus:drop-shadow drop-shadow-sm bg-gradient-to-r from-slate-50 to-zinc-50 text-alig"
-        />
-      </form>
+      <div class="flex gap-2">
+        <div class="flex flex-col w-fit gap-2 relative">
+          <div
+            class="absolute w-full h-full left-0 top-0 bg-gradient-to-r from-white to-zinc-100 z-10 opacity-90 rounded-lg hover:opacity-80 transition ease-in-out delay-50"
+            v-if="state.showOverlay"
+          ></div>
+          <label class="font-bold text-slate-500 uppercase text-sm">
+            grade ranges
+          </label>
+          <div class="flex flex-col w-min gap-1 content-center">
+            <div
+              class="flex gap-2"
+              v-for="grade in course.gradesystem"
+              :key="grade.marker"
+            >
+              <input
+                v-model="grade.marker"
+                type="text"
+                class="p-2 h-8 w-8 bg-slate-50 rounded-lg outline-0 border-white border-solid border-2 focus:bg-gradient-to-r focus:from-white focus:to-purple-50 focus:drop-shadow drop-shadow-sm disabled:drop-shadow-none disabled:bg-gradient-to-r disabled:from-zinc-100 disabled:to-zinc-200 disabled:border-none"
+              />
+              <input
+                type="number"
+                pattern="[0-9]*"
+                v-model="grade.pointrange"
+                inputmode="numeric"
+                class="p-2 h-8 w-16 bg-slate-50 rounded-lg outline-0 border-white border-solid border-2 focus:bg-gradient-to-r focus:from-white focus:to-purple-50 focus:drop-shadow drop-shadow-sm disabled:drop-shadow-none disabled:bg-gradient-to-r disabled:from-zinc-100 disabled:to-zinc-200 disabled:border-none"
+              />
+            </div>
+          </div>
+        </div>
+        <form class="flex-col flex w-full align-start">
+          <label
+            class="pl-1 text-left font-bold text-slate-500 uppercase text-sm"
+          >
+            description
+          </label>
+          <textarea
+            v-model="course.description"
+            type="text"
+            class="p-2 h-full w-full bg-slate-50 rounded-lg outline-0 border-white border-solid border-2 focus:bg-gradient-to-r focus:from-white focus:to-slate-50 focus:drop-shadow drop-shadow-sm bg-gradient-to-r from-slate-50 to-zinc-50 text-alig"
+          />
+        </form>
+      </div>
       <!-- <div class="flex justify-center gap-5">
         <CheckIcon
           class="select-none h-16 w-16 hover:cursor-pointer active:cursor-grab active:scale-95"
@@ -114,8 +152,8 @@
   </div>
 </template>
 <script setup lang="ts">
-import { reactive, computed } from "vue";
-import { CheckIcon, XIcon } from "@heroicons/vue/solid";
+import { computed, ComputedRef, reactive } from "vue";
+import { XIcon } from "@heroicons/vue/solid";
 import store from "@/store";
 import Course from "@/assets/types/Course";
 
@@ -147,8 +185,9 @@ const isNewCourse = computed(() => {
   return true;
 });
 
-const course = computed(() => {
+const course: ComputedRef<Course> = computed(() => {
   const course = structuredClone(store.getters.getActiveCourse);
+  // TODO: THIS IS A MISTAKE
   if (course != {}) {
     return course;
   } else {
@@ -163,6 +202,15 @@ const course = computed(() => {
     };
   }
 });
+
+const state = reactive({
+  showOverlay: !course.value.gradable,
+});
+
+function clickCheckbox() {
+  course.value.gradable = !course.value.gradable;
+  state.showOverlay = !state.showOverlay;
+}
 </script>
 <style lang="scss" scoped>
 #popup-container {

@@ -1,6 +1,5 @@
 import { createStore, Store, storeKey } from "vuex";
 import Course from "@/assets/types/Course";
-import { ssrContextKey } from "vue";
 
 export default createStore({
   state: {
@@ -17,6 +16,13 @@ export default createStore({
         startdate: "10102022",
         enddate: "01062022",
         goal: 51,
+        gradesystem: [
+          { marker: "A", pointrange: 90 },
+          { marker: "B", pointrange: 80 },
+          { marker: "C", pointrange: 70 },
+          { marker: "D", pointrange: 60 },
+          { marker: "E", pointrange: 50 },
+        ],
       },
       {
         id: "2",
@@ -30,6 +36,13 @@ export default createStore({
         startdate: "10102022",
         enddate: "01062022",
         goal: 90,
+        gradesystem: [
+          { marker: "A", pointrange: 90 },
+          { marker: "B", pointrange: 80 },
+          { marker: "C", pointrange: 70 },
+          { marker: "D", pointrange: 60 },
+          { marker: "E", pointrange: 50 },
+        ],
       },
       {
         id: "3",
@@ -44,6 +57,13 @@ export default createStore({
         startdate: "10102022",
         enddate: "01062022",
         goal: 80,
+        gradesystem: [
+          { marker: "A", pointrange: 90 },
+          { marker: "B", pointrange: 80 },
+          { marker: "C", pointrange: 70 },
+          { marker: "D", pointrange: 60 },
+          { marker: "E", pointrange: 50 },
+        ],
       },
       {
         id: "4",
@@ -57,6 +77,13 @@ export default createStore({
         startdate: "10102022",
         enddate: "01062022",
         goal: 70,
+        gradesystem: [
+          { marker: "A", pointrange: 90 },
+          { marker: "B", pointrange: 80 },
+          { marker: "C", pointrange: 70 },
+          { marker: "D", pointrange: 60 },
+          { marker: "E", pointrange: 50 },
+        ],
       },
       {
         id: "5",
@@ -70,8 +97,15 @@ export default createStore({
         startdate: "10102022",
         enddate: "01062022",
         goal: 95,
+        gradesystem: [
+          { marker: "A", pointrange: 90 },
+          { marker: "B", pointrange: 80 },
+          { marker: "C", pointrange: 70 },
+          { marker: "D", pointrange: 60 },
+          { marker: "E", pointrange: 50 },
+        ],
       },
-    ] as Array<Course>,
+    ] as unknown as Array<Course>,
     courseModificationWindowActive: false,
     activeCourse: {},
   },
@@ -83,7 +117,14 @@ export default createStore({
       return state.courseModificationWindowActive;
     },
     getActiveCourse(state) {
-      return state.activeCourse;
+      const activeCourse = state.activeCourse;
+      if (Object.keys(activeCourse).length > 0) {
+        return activeCourse;
+      }
+      if (state.courses.length > 0) {
+        return state.courses[0];
+      }
+      return {};
     },
     getCourse(state, code) {
       return state.courses.filter((course) => course.code === code);
@@ -129,7 +170,7 @@ export default createStore({
       context.commit("resetActiveCourse");
     },
     discardCourseModification(context) {
-      context.commit("resetActiveCourse");
+      // context.commit("resetActiveCourse");
       context.commit("closeCourseModWindow");
     },
     saveCourseModification(context, course) {
