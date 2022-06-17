@@ -1,11 +1,28 @@
 <template>
-  <div class="container sm:flex flex-col gap-6 items-center md:items-end">
+  <div
+    class="container shadow-md grid grid-cols-3 p-5 gap-2 rounded-lg bg-gradient-to-r from-slate-50 to-gray-100 opacity-90 hover:opacity-100 hover:shadow-lg border-2 border-solid border-white auto-rows-auto"
+  >
     <div
-      class="container shadow-md grid grid-rows-2 grid-cols-3 p-5 gap-2 rounded-lg bg-gradient-to-r from-slate-50 to-gray-100 opacity-90 hover:opacity-100 hover:shadow-lg border-2 border-solid border-white"
+      class="flex flex-row col-start-1 row-start-1 col-span-1 row-span-1 gap-5 items-center h-full"
     >
-      <h1 class="text-left font-bold col-span-2">{{ task.name }}</h1>
-      <p class="text-right">{{ task.deadline }}</p>
-      <div class="col-span-3 flex justify-end items-end gap-2">
+      <p class="font-bold text-slate-800 text-lg">
+        {{ task.task_name }}
+      </p>
+      <h1 class="text-md text-left">{{ task.points }}p</h1>
+    </div>
+    <div
+      class="col-start-2 col-span-2 row-star-1 flex flex-row gap-2 justify-end items-center text-slate-500 h-full"
+    >
+      <h1 class="font-bold">{{ task.course_name }}</h1>
+      <p class="">{{ task.deadline }}</p>
+    </div>
+    <div
+      class="col-start-1 col-span-3 row-start-2 flex flex-row gap-5 justify-between"
+    >
+      <p class="text-justify">
+        {{ task.description }}
+      </p>
+      <div class="flex flex-col justify-end items-end gap-2 row-start-2">
         <div
           class="bg-gradient-to-r from-green-500 to-green-300 w-16 justify-center flex rounded-2xl cursor-pointer border-2 border-white hover:shadow-lg shadow-md active:cursor-grab active:scale-95"
         >
@@ -20,22 +37,15 @@
     </div>
   </div>
 </template>
-<script lang="ts">
-import { defineComponent, PropType } from "vue";
+<script setup lang="ts">
+import { defineProps, PropType } from "vue";
 import { CheckIcon, XIcon } from "@heroicons/vue/solid";
 import Task from "@/assets/types/Task";
 
-export default defineComponent({
-  name: "HelloWorld",
-  props: {
-    task: {
-      type: Object as PropType<Task>,
-      required: true,
-    },
-  },
-  components: {
-    CheckIcon,
-    XIcon,
+const props = defineProps({
+  task: {
+    type: Object as PropType<Task>,
+    required: true,
   },
 });
 </script>

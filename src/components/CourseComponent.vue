@@ -1,37 +1,22 @@
 <template>
   <div
-    class="container max-w-fit w-128 m-5 p-5 shadow-md rounded-lg bg-gradient-to-r from-slate-50 to-gray-100 opacity-90 hover:opacity-100 hover:shadow-lg border-2 border border-white hover:cursor-pointer active:cursor-grab"
+    class="container shadow-md rounded-lg bg-gradient-to-r from-slate-50 to-gray-100 opacity-90 hover:opacity-100 hover:shadow-lg border-2 border border-white hover:cursor-pointer active:cursor-grab md:grid md:grid-cols-3 p-8"
   >
-    <div class="container mx-auto grid grid-cols-2 w-fit">
-      <p class="field-box left col-start-1 row-start-1">ID:</p>
+    <div
+      class="container mx-auto grid grid-cols-2 w-fit col-start-1 col-span-2"
+    >
       <p class="field-box left col-start-1 row-start-2">Name:</p>
       <p class="field-box left col-start-1 row-start-3">Description:</p>
-      <p class="field-box left col-start-1 row-start-4">Maximum points:</p>
-      <p class="field-box left col-start-1 row-start-5">
-        Best possible result:
-      </p>
-      <p class="field-box left col-start-1 row-start-6">Points lost:</p>
-
-      <p class="field-box right col-start-2 row-start-1">
-        {{ course.id }}
-      </p>
       <p class="field-box right col-start-2 row-start-2">
         {{ course.name }}
       </p>
       <p class="field-box right col-start-2 row-start-3">
         {{ course.description }}
       </p>
-      <p class="field-box right col-start-2 row-start-4">
-        {{ course.maxpoints }}
-      </p>
-      <p class="field-box right col-start-2 row-start-5">
-        {{ course.gainedpoints }}
-      </p>
-      <p class="field-box right col-start-2 row-start-6">
-        {{ course.lostpoints }}
-      </p>
     </div>
-    <div class="container flex justify-center content-center gap-8 mt-4">
+    <div
+      class="container flex lg:flex-col justify-center content-center items-center gap-2 col-start-3 row-span-full"
+    >
       <button
         class="rounded-lg border-solid border-white border-2 drop-shadow h-8 w-32 bg-gradient-to-r from-slate-100 to-slate-50 hover:drop-shadow-md active:scale-95 uppercase font-black text-lg text-sky-900"
       >

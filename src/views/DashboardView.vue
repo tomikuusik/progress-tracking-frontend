@@ -5,9 +5,7 @@
     <StatsComponent
       class="col-start-2 row-start-1 p-2 border border-gray-200 rounded-lg bg-slate-50 h-min"
     />
-    <TaskListComponent
-      class="col-start-1 row-start-1 p-2 border border-gray-200 rounded-lg bg-slate-50 h-min"
-    />
+    <TaskListComponent class="col-start-1 row-start-1" />
   </div>
 </template>
 

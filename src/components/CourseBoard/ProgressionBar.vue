@@ -11,10 +11,10 @@
     </div>
     <div id="parent" class="h-8 md:h-10 xl:h-14">
       <div
-        class="bar w-full border-solid border-white border-4 bg-gradient-to-r from-stone-50 to-stone-200 h-8 md:h-10 xl:h-14 rounded-full z-10 drop-shadow-xl"
+        class="bar w-full border-solid border-white border-2 bg-gradient-to-r from-stone-50 to-stone-200 h-8 md:h-10 xl:h-14 rounded-full z-10 drop-shadow-xl md:border-4"
       ></div>
       <div
-        class="bar bg-gradient-to-r w-1/2 rounded-full z-30 h-8 md:h-10 xl:h-14 border-solid border-white border-4 flex justify-center items-center"
+        class="bar bg-gradient-to-r w-1/2 rounded-full z-30 h-8 md:h-10 xl:h-14 border-solid border-white border-2 md:border-4 flex justify-center items-center"
         :style="{
           width: progress + '%',
           '--tw-gradient-from': color[0],
@@ -29,11 +29,11 @@
         </h1>
       </div>
       <div
-        class="bar w-full w-3/4 bg-gray-300 rounded-full z-20 h-8 md:h-10 xl:h-14 border-solid border-white border-4 flex justify-end items-center pr-6 bg-gradient-to-r from-zinc-400 to-zinc-300"
+        class="bar w-full w-3/4 bg-gray-300 rounded-full z-20 h-8 md:h-10 xl:h-14 border-solid border-white border-2 md:border-4 flex justify-end items-center pr-6 bg-gradient-to-r from-zinc-400 to-zinc-300"
         :style="{ width: theoreticalResult + '%' }"
       >
         <h1
-          class="text-white font-bold xl:text-3xl md:text-xl opacity-75 z-40 select-none"
+          class="text-white font-bold xl:text-3xl md:text-xl opacity-50 z-40 select-none"
         >
           {{ theoreticalResultText }}
         </h1>
@@ -103,7 +103,7 @@ const theoreticalResultText = computed(() => {
       return theoreticalResult.value + "%";
     }
   }
-  if (theoreticalResult.value - progress.value >= 40) {
+  if (theoreticalResult.value - progress.value >= 50) {
     return "theoretically possible: " + theoreticalResult.value + "%";
   }
   if (theoreticalResult.value - progress.value >= 15) {
@@ -127,7 +127,7 @@ function setWidth() {
 }
 
 #flagContainer {
-  top: 0.7em;
+  top: 0.6em;
 }
 .bar {
   position: absolute;

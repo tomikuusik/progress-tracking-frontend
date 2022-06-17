@@ -1,7 +1,7 @@
 <template>
   <div
     id="popup-container"
-    class="backdrop-blur-sm flex justify-center items-center transition duration-1000 ease-in"
+    class="backdrop-blur-sm flex justify-center items-center transition duration-1000 ease-in z-50"
   >
     <div
       id="close-button"

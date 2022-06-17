@@ -1,32 +1,33 @@
 <template>
-  <div class="tasklist mx-auto flex flex-col gap-4">
-    <TaskComponent :task="task" v-for="number in 5" :key="number" />
+  <div
+    class="tasklist mx-auto flex flex-col gap-4 p-2 border border-gray-200 rounded-lg bg-slate-50 h-min"
+  >
+    <h1 class="text-xl md:text-3xl font-bold text-slate-600">
+      {{ props.title }}
+    </h1>
+    <TaskComponent :task="state.task" v-for="number in 5" :key="number" />
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from "vue";
+<script setup lang="ts">
+import { reactive } from "vue";
 import TaskComponent from "./Tasks/TaskComponent.vue";
-import Task from "@/assets/types/Task";
-import { PropType } from "vue";
+import { defineProps } from "vue";
 
-export default defineComponent({
-  name: "TaskListComponent",
-  components: {
-    TaskComponent,
+const state = reactive({
+  task: {
+    id: 1,
+    task_name: "Interview",
+    course_code: "LTAT.05.007",
+    course_name: "Human Computer Interaction",
+    description:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras at enim ut arcu faucibus tempus.",
+    points: 30,
+    deadline: "10022022",
   },
-  data() {
-    return {
-      task: {
-        id: 1,
-        course_id: "ETA12",
-        name: "HCI",
-        description: "Something",
-        points: 100,
-        deadline: 120312,
-      },
-    };
-  },
+});
+const props = defineProps({
+  title: String,
 });
 </script>
 

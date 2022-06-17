@@ -8,4 +8,6 @@ export default interface Course {
   gainedpoints: number;
   lostpoints: number;
   goal: number;
+  startdate: string;
+  enddate: string;
 }
