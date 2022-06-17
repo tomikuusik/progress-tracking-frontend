@@ -11,10 +11,10 @@
       <h1 class="text-md text-left">{{ task.points }}p</h1>
     </div>
     <div
-      class="col-start-2 col-span-2 row-star-1 flex flex-row gap-2 justify-end items-center text-slate-500 h-full"
+      class="col-start-2 col-span-2 row-star-1 flex flex-col md:flex-row gap-2 text-end md:text-center justify-end items-end md:items-center text-slate-500 h-full"
     >
       <h1 class="font-bold">{{ task.course_name }}</h1>
-      <p class="">{{ task.deadline }}</p>
+      <p>{{ task.deadline }}</p>
     </div>
     <div
       class="col-start-1 col-span-3 row-start-2 flex flex-row gap-5 justify-between"
