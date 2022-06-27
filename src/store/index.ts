@@ -1,5 +1,6 @@
 import { createStore, Store, storeKey } from "vuex";
 import Course from "@/assets/types/Course";
+import Task from "@/assets/types/Task";
 
 export default createStore({
   state: {
@@ -108,6 +109,18 @@ export default createStore({
     ] as unknown as Array<Course>,
     courseModificationWindowActive: false,
     activeCourse: {},
+    tasks: [
+      {
+        id: "1",
+        task_name: "Interview",
+        course_code: "LTAT.05.007",
+        course_name: "Human Computer Interaction",
+        description:
+          "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras at enim ut arcu faucibus tempus.",
+        points: 30,
+        deadline: "10022022",
+      },
+    ] as Array<Task>,
   },
   getters: {
     getCourses(state) {
@@ -128,6 +141,9 @@ export default createStore({
     },
     getCourse(state, code) {
       return state.courses.filter((course) => course.code === code);
+    },
+    getTasks(state) {
+      return state.tasks;
     },
   },
   mutations: {
@@ -159,6 +175,15 @@ export default createStore({
         state.courses.splice(courseid, 1);
       }
     },
+    deleteTask(state, task) {
+      const taskindex = state.tasks.findIndex((x) => x === task);
+      if (taskindex > 0) {
+        state.tasks.splice(taskindex, 1);
+      }
+    },
+    addTask(state, task) {
+      state.tasks.push(task);
+    },
   },
   actions: {
     courseModificationWindowOpenRequest(context, course) {
@@ -182,6 +207,11 @@ export default createStore({
     deleteCourse(context, course) {
       context.commit("deleteCourse", course);
     },
+    deleteTask(context, task) {
+      context.commit("deleteTask", task);
+    },
+    // taskCompletionWindowOpenRequest(context, task) {},
+    // completeTask(context, task) {},
   },
   modules: {},
 });

@@ -1,6 +1,6 @@
 <template>
   <div
-    class="container shadow-md grid grid-cols-3 p-5 gap-2 rounded-lg bg-gradient-to-r from-slate-50 to-gray-100 opacity-90 hover:opacity-100 hover:shadow-lg border-2 border-solid border-white auto-rows-auto"
+    class="container shadow grid grid-cols-3 p-5 gap-2 rounded-lg bg-gradient-to-r from-slate-50 to-gray-100 opacity-90 hover:opacity-100 hover:shadow-md border-2 border-solid border-white auto-rows-auto transition duration-400 ease-in-out"
   >
     <div
       class="flex flex-row col-start-1 row-start-1 col-span-1 row-span-1 gap-5 items-center h-full"

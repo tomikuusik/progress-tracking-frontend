@@ -5,5 +5,5 @@ export default interface Task {
   task_name: string;
   description: string;
   points: number;
-  deadline: number;
+  deadline: string;
 }
